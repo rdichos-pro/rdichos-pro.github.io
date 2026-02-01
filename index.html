@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rhina Mae Dichos | Senior Quantity Surveyor & Data Analyst</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Refined Luxury Palette */
+            --cream: #faf8f5;
+            --beige: #f5f1eb;
+            --warm-white: #ffffff;
+            --soft-gray: #e8e4df;
+            --taupe: #c9b8a8;
+            --warm-brown: #8b7a6a;
+            --dark-text: #4a4038;
+            --gold: #d4af37;
+            --soft-gold: #e5c158;
+            --accent-rose: #d4a5a5;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark-text);
+            line-height: 1.7;
+            background: var(--cream);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--beige) 0%, var(--cream) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(201, 184, 168, 0.12) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 1000px;
+        }
+
+        .hero h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+            color: var(--dark-text);
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            color: var(--warm-brown);
+        }
+
+        .hero .tagline {
+            font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            color: var(--warm-brown);
+            font-weight: 300;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            font-weight: 500;
+            border-radius: 50px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--soft-gold) 100%);
+            color: var(--warm-white);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--warm-white);
+            color: var(--dark-text);
+            border: 2px solid var(--taupe);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .btn-secondary:hover {
+            background: var(--beige);
+            border-color: var(--warm-brown);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-download {
+            background: var(--warm-white);
+            color: var(--dark-text);
+            border: 2px solid var(--gold);
+            box-shadow: 0 2px 10px rgba(212, 175, 55, 0.2);
+        }
+
+        .btn-download:hover {
+            background: var(--gold);
+            color: var(--warm-white);
+            border-color: var(--gold);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        /* Stats */
+        .stats {
+            background: var(--warm-white);
+            padding: 5rem 2rem;
+            box-shadow: inset 0 1px 0 rgba(0,0,0,0.05);
+        }
+
+        .stats-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2.5rem 2rem;
+            background: linear-gradient(135deg, var(--beige) 0%, var(--cream) 100%);
+            border-radius: 20px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-family: 'Crimson Pro', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--soft-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            color: var(--warm-brown);
+            font-weight: 400;
+        }
+
+        /* Section */
+        .section {
+            padding: 6rem 2rem;
+        }
+
+        .section-cream {
+            background: var(--cream);
+        }
+
+        .section-white {
+            background: var(--warm-white);
+        }
+
+        .section-beige {
+            background: var(--beige);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Crimson Pro', serif;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: var(--dark-text);
+            letter-spacing: -0.01em;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 4rem;
+            color: var(--warm-brown);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+        }
+
+        .divider {
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--soft-gold));
+            margin: 1.5rem auto 2rem;
+            border-radius: 2px;
+        }
+
+        /* Portfolio Cards */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .portfolio-card-large {
+            background: var(--warm-white);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(201, 184, 168, 0.2);
+        }
+
+        .portfolio-card-large:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+            border-color: var(--gold);
+        }
+
+        .portfolio-icon {
+            font-size: 3.5rem;
+            display: block;
+            margin-bottom: 1.5rem;
+        }
+
+        .portfolio-card-large h3 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--dark-text);
+            font-weight: 600;
+        }
+
+        .portfolio-card-large p {
+            color: var(--warm-brown);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .portfolio-card-large ul {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .portfolio-card-large ul li {
+            padding: 0.6rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--warm-brown);
+            font-size: 0.95rem;
+        }
+
+        .portfolio-card-large ul li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        /* About Section */
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.9;
+        }
+
+        .about-content p {
+            margin-bottom: 1.5rem;
+            color: var(--warm-brown);
+        }
+
+        .highlight {
+            color: var(--dark-text);
+            font-weight: 500;
+            background: linear-gradient(180deg, transparent 60%, rgba(212, 175, 55, 0.2) 60%);
+            padding: 0 0.2rem;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .skill-card {
+            background: var(--warm-white);
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(201, 184, 168, 0.2);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.1);
+            border-color: var(--gold);
+        }
+
+        .skill-card h3 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.4rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-text);
+            font-weight: 600;
+        }
+
+        .skill-card ul {
+            list-style: none;
+        }
+
+        .skill-card ul li {
+            padding: 0.5rem 0;
+            color: var(--warm-brown);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .skill-card ul li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--gold);
+            font-size: 1.3rem;
+        }
+
+        /* Project Cards */
+        .project-card {
+            background: var(--cream);
+            padding: 2.5rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(201, 184, 168, 0.2);
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.1);
+            border-color: var(--gold);
+        }
+
+        .project-card h3 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-text);
+            font-weight: 600;
+        }
+
+        .project-card p {
+            color: var(--warm-brown);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .project-card a {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .project-card a:hover {
+            color: var(--soft-gold);
+            gap: 0.8rem;
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-card {
+            background: var(--warm-white);
+            padding: 2.5rem 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.06);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+            border-color: var(--gold);
+        }
+
+        .contact-card h4 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--dark-text);
+            font-weight: 600;
+        }
+
+        .contact-card a {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: inline-block;
+            position: relative;
+        }
+
+        .contact-card a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .contact-card a:hover {
+            color: var(--soft-gold);
+        }
+
+        .contact-card a:hover::after {
+            width: 100%;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-text);
+            color: var(--beige);
+            text-align: center;
+            padding: 3rem 2rem;
+            font-size: 0.9rem;
+        }
+
+        footer p {
+            margin: 0.3rem 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero {
+                min-height: auto;
+                padding: 4rem 1.5rem;
+            }
+            
+            .section {
+                padding: 4rem 1.5rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                justify-content: center;
+            }
+        }
+
+        /* Smooth Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-content {
+            animation: fadeInUp 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Rhina Mae Dichos</h1>
+            <p class="subtitle">Senior Quantity Surveyor | Data Analytics Specialist | Licensed Civil Engineer</p>
+            <p class="tagline">
+                Transforming construction workflows through Excel automation and data-driven insights. 
+                ROBIN Award winner with 10+ years managing Php 900M+ high-rise developments.
+            </p>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn btn-primary">
+                    <span>💬</span> Let's Connect
+                </a>
+                <a href="Rhina_Mae_Dichos_Resume.pdf" download="Rhina_Mae_Dichos_Resume.pdf" class="btn btn-download">
+                    <span>📄</span> Download Resume
+                </a>
+                <a href="https://www.linkedin.com/in/rhinamaedichos" target="_blank" class="btn btn-secondary">
+                    <span>🔗</span> View LinkedIn
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">10+</div>
+                <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">₱900M+</div>
+                <div class="stat-label">Projects Managed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">40%</div>
+                <div class="stat-label">Time Reduction</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">25%</div>
+                <div class="stat-label">Accuracy Improvement</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="section section-cream">
+        <div class="container">
+            <h2 class="section-title">Featured Analytics Portfolio</h2>
+            <div class="divider"></div>
+            <p class="section-subtitle">
+                Explore my data analytics and project management systems that transform construction workflows
+            </p>
+            
+            <div class="portfolio-grid">
+                <!-- Financial Dashboard -->
+                <div class="portfolio-card-large">
+                    <span class="portfolio-icon">📊</span>
+                    <h3>Financial Cost Dashboard</h3>
+                    <p>Excel Power Query automation tracking Variation Orders and Owner Supplied Materials across Php 900M+ projects. Reduced reporting time from 8 hours to 30 minutes weekly.</p>
+                    <ul>
+                        <li>Real-time Variation Order tracking</li>
+                        <li>Owner Supplied Materials management</li>
+                        <li>Automated reporting workflows</li>
+                        <li>Power Query automation techniques</li>
+                    </ul>
+                    <a href="https://bit.ly/rhina-analytics" target="_blank" class="btn btn-primary">
+                        📺 Watch Presentation
+                    </a>
+                </div>
+
+                <!-- Notion System -->
+                <div class="portfolio-card-large">
+                    <span class="portfolio-icon">📋</span>
+                    <h3>Digital Project Control System</h3>
+                    <p>Cloud-based Notion workflow with relational databases, formula-driven timelines, and resource loading. Improved tender schedule accuracy by 30%.</p>
+                    <ul>
+                        <li>Centralized project database architecture</li>
+                        <li>Formula-driven timeline calculations</li>
+                        <li>Resource loading & conflict detection</li>
+                        <li>Real-time collaboration workflows</li>
+                    </ul>
+                    <a href="https://bit.ly/rhina-notion" target="_blank" class="btn btn-primary">
+                        📺 Watch Presentation
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section section-white">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="divider"></div>
+            <div class="about-content">
+                <p>
+                    I'm a Licensed Civil Engineer and Senior Quantity Surveyor with a passion for 
+                    <span class="highlight">transforming traditional construction workflows through data analytics and automation</span>. 
+                    My expertise lies at the intersection of quantity surveying, project controls, and digital innovation.
+                </p>
+                <p>
+                    Throughout my career, I've specialized in managing high-rise commercial and residential projects, 
+                    with a proven track record of <span class="highlight">leveraging Excel Power Query and cloud-based systems 
+                    to streamline estimation processes and improve decision-making</span>.
+                </p>
+                <p>
+                    As a <span class="highlight">2024 ROBIN Award winner for Innovation</span>, I developed proprietary 
+                    financial dashboards and contractor evaluation systems that have become integral to project success. 
+                    I'm now seeking remote opportunities where I can bring my unique blend of technical expertise and 
+                    digital transformation skills to international teams.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section section-beige">
+        <div class="container">
+            <h2 class="section-title">Core Expertise</h2>
+            <div class="divider"></div>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>Data & Analytics</h3>
+                    <ul>
+                        <li>Excel Power Query & Pivot</li>
+                        <li>SQL & Database Management</li>
+                        <li>Financial Dashboard Development</li>
+                        <li>Predictive Cost Modeling</li>
+                        <li>Business Intelligence</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>Quantity Surveying</h3>
+                    <ul>
+                        <li>Material Take-off & Estimation</li>
+                        <li>Cost Control & Optimization</li>
+                        <li>Value Engineering</li>
+                        <li>Progress Claims & Variations</li>
+                        <li>Risk Analysis</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>Project Controls</h3>
+                    <ul>
+                        <li>Contract Administration</li>
+                        <li>Vendor Evaluation Systems</li>
+                        <li>BOQ Preparation</li>
+                        <li>PCAB/ISO Compliance</li>
+                        <li>Budget Management</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3>Software & Tools</h3>
+                    <ul>
+                        <li>Planswift & AutoCAD</li>
+                        <li>Notion & Cloud Platforms</li>
+                        <li>Microsoft Office Suite (Advanced)</li>
+                        <li>SketchUp</li>
+                        <li>Remote Collaboration Tools</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Projects Section -->
+    <section class="section section-white">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="divider"></div>
+            <p class="section-subtitle">Real-world impact through data-driven solutions</p>
+            
+            <div class="skills-grid">
+                <div class="project-card">
+                    <h3>Financial Cost Dashboard</h3>
+                    <p>
+                        Developed proprietary dashboard automating real-time tracking of Variation Orders and 
+                        Owner Supplied Materials across Php 900M+ portfolio. Reduced weekly reporting time 
+                        from 8 hours to 30 minutes while providing instant financial visibility to stakeholders.
+                    </p>
+                    <a href="https://bit.ly/rhina-analytics" target="_blank">
+                        View Case Study →
+                    </a>
+                </div>
+                
+                <div class="project-card">
+                    <h3>Digital Project Control System</h3>
+                    <p>
+                        Built cloud-based Notion workflow utilizing parent-child relational databases, 
+                        formula-driven timelines, and resource loading visualization. Improved tender 
+                        schedule accuracy by 30% and enabled seamless remote collaboration.
+                    </p>
+                    <a href="https://bit.ly/rhina-notion" target="_blank">
+                        View Case Study →
+                    </a>
+                </div>
+                
+                <div class="project-card">
+                    <h3>Contractor Evaluation Algorithm</h3>
+                    <p>
+                        Designed data-driven evaluation system using weighted scoring to standardize 
+                        vendor selection across 20+ contractors. Ensured PCAB/ISO compliance while 
+                        eliminating bias and improving vendor quality metrics by 35%.
+                    </p>
+                    <a href="#contact">
+                        Request Details →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section section-cream" id="contact">
+        <div class="container">
+            <h2 class="section-title">Let's Connect</h2>
+            <div class="divider"></div>
+            <p class="section-subtitle">
+                Open to remote Senior Quantity Surveyor, Data Analyst, and Project Controls roles. 
+                Let's discuss how I can bring value to your team.
+            </p>
+            
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <h4>📧 Email</h4>
+                    <a href="mailto:namaedichos@gmail.com">namaedichos@gmail.com</a>
+                </div>
+                <div class="contact-card">
+                    <h4>📱 Phone</h4>
+                    <a href="tel:+639623279792">+63 962-327-9792</a>
+                </div>
+                <div class="contact-card">
+                    <h4>💼 LinkedIn</h4>
+                    <a href="https://www.linkedin.com/in/rhinamaedichos" target="_blank">linkedin.com/in/rhinamaedichos</a>
+                </div>
+                <div class="contact-card">
+                    <h4>📍 Location</h4>
+                    <span style="color: var(--warm-brown); font-weight: 500;">Cebu City, Philippines</span><br>
+                    <span style="font-size: 0.9rem; color: var(--gold); font-weight: 500; margin-top: 0.5rem; display: inline-block;">Remote Ready ✓</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Rhina Mae Dichos. All rights reserved.</p>
+        <p style="margin-top: 0.5rem;">
+            Licensed Civil Engineer | PICQS Technical Member | ROBIN Award Winner 2024
+        </p>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
