@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estimating Portfolio — Finishes BOQ | Rhina Mae Dichos</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+/* ═══════════════════════════════════════════
+   TOKENS
+═══════════════════════════════════════════ */
+:root {
+  --white:   #ffffff;
+  --off:     #f8f9fb;
+  --surface: #f2f5f7;
+  --border:  #e2e8ed;
+  --border2: #ccd5dd;
+  --teal:    #2a9d8f;
+  --teal-d:  #1f7a6e;
+  --teal-l:  #e8f5f3;
+  --teal-xl: #f0faf8;
+  --gold:    #c9a84c;
+  --gold-l:  #fdf7ea;
+  --ink:     #1a2332;
+  --ink2:    #2d3f52;
+  --muted:   #6b7f93;
+  --muted2:  #8fa0b0;
+  --r-sm: 6px;
+  --r-md: 12px;
+  --r-lg: 20px;
+  --shadow-xs: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.08), 0 2px 6px rgba(0,0,0,0.05);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.10), 0 4px 12px rgba(0,0,0,0.06);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--white);
+  color: var(--ink);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ── */
+.topnav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.93);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 48px;
+}
+.topnav-inner {
+  max-width: 1160px; margin: 0 auto;
+  height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px; font-weight: 600;
+  color: var(--ink); text-decoration: none; letter-spacing: 0.02em;
+}
+.nav-brand span { color: var(--teal); }
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  font-size: 13px; font-weight: 400;
+  color: var(--muted); text-decoration: none;
+  letter-spacing: 0.03em; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--teal); }
+.nav-back {
+  font-size: 13px; color: var(--teal); text-decoration: none;
+  display: flex; align-items: center; gap: 6px;
+  font-weight: 400; transition: gap 0.2s;
+}
+.nav-back:hover { gap: 10px; }
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(160deg, #f0faf8 0%, #f8f9fb 55%, #fefcf5 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 80px 48px 72px;
+  position: relative; overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: -120px; right: -120px;
+  width: 480px; height: 480px;
+  background: radial-gradient(circle, rgba(42,157,143,0.09) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute; bottom: -80px; left: 8%;
+  width: 320px; height: 320px;
+  background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-inner {
+  max-width: 1160px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 64px; align-items: center;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--teal);
+  background: var(--teal-l);
+  border: 1px solid rgba(42,157,143,0.22);
+  padding: 5px 14px; border-radius: 100px; margin-bottom: 24px;
+}
+.hero-eyebrow::before {
+  content: ''; width: 6px; height: 6px;
+  border-radius: 50%; background: var(--teal);
+}
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(38px, 5vw, 58px); font-weight: 600;
+  line-height: 1.12; color: var(--ink); margin-bottom: 20px; letter-spacing: -0.01em;
+}
+.hero h1 em { font-style: italic; color: var(--teal); }
+.hero-sub {
+  font-size: 16px; color: var(--muted);
+  max-width: 520px; line-height: 1.78; margin-bottom: 36px; font-weight: 300;
+}
+.hero-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.tag {
+  font-size: 12px; font-weight: 400;
+  color: var(--ink2); background: var(--white);
+  border: 1px solid var(--border2);
+  padding: 5px 14px; border-radius: 100px; box-shadow: var(--shadow-xs);
+}
+.tag-teal {
+  color: var(--teal-d); background: var(--teal-l);
+  border-color: rgba(42,157,143,0.25);
+}
+
+/* HERO PANEL */
+.hero-panel {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--r-lg); box-shadow: var(--shadow-lg);
+  padding: 32px 28px; min-width: 240px; position: relative;
+}
+.hero-panel::before {
+  content: '';
+  position: absolute; top: 0; left: 32px; right: 32px; height: 3px;
+  background: linear-gradient(90deg, var(--teal), var(--gold));
+  border-radius: 0 0 4px 4px;
+}
+.panel-label {
+  font-size: 10px; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted2); margin-bottom: 20px;
+}
+.stat-row {
+  display: flex; align-items: baseline;
+  justify-content: space-between; padding: 12px 0;
+  border-bottom: 1px solid var(--border); gap: 16px;
+}
+.stat-row:last-child { border-bottom: none; padding-bottom: 0; }
+.stat-key { font-size: 12px; color: var(--muted); font-weight: 300; }
+.stat-val {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; font-weight: 600; color: var(--teal); line-height: 1;
+}
+.stat-unit {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px; color: var(--muted2); margin-left: 2px;
+}
+
+/* ── LAYOUT ── */
+.page { max-width: 1160px; margin: 0 auto; padding: 0 48px 100px; }
+.section { margin-top: 72px; }
+.section-head {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 36px;
+}
+.section-num {
+  width: 36px; height: 36px; background: var(--teal); color: #fff;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 500; flex-shrink: 0;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px; font-weight: 600; color: var(--ink); letter-spacing: -0.01em;
+}
+.section-divider { flex: 1; height: 1px; background: linear-gradient(90deg, var(--border2), transparent); }
+
+/* ── OVERVIEW ── */
+.overview-grid { display: grid; grid-template-columns: 1fr 340px; gap: 32px; align-items: start; }
+.overview-body p { font-size: 15px; color: var(--ink2); line-height: 1.82; margin-bottom: 18px; font-weight: 300; }
+.overview-body p:last-child { margin-bottom: 0; }
+.detail-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-md); box-shadow: var(--shadow-sm); overflow: hidden; }
+.detail-card-head { background: var(--teal); padding: 14px 20px; }
+.detail-card-head span { font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.9); }
+.detail-rows { padding: 4px 0; }
+.detail-row { display: flex; justify-content: space-between; align-items: center; padding: 11px 20px; border-bottom: 1px solid var(--border); gap: 12px; }
+.detail-row:last-child { border-bottom: none; }
+.dk { font-size: 11px; font-weight: 400; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted2); flex-shrink: 0; }
+.dv { font-size: 13px; font-weight: 400; color: var(--ink); text-align: right; }
+.dv-mono { font-family: 'Outfit', monospace; font-size: 12px; }
+.pill { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 10px; border-radius: 100px; }
+.pill-teal { background: var(--teal-l); color: var(--teal-d); border: 1px solid rgba(42,157,143,0.2); }
+.pill-gold { background: var(--gold-l); color: #8a6d1e; border: 1px solid rgba(201,168,76,0.25); }
+
+/* ── SCOPE ── */
+.scope-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 12px; margin-bottom: 20px; }
+.scope-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: var(--r-md);
+  padding: 20px 16px; box-shadow: var(--shadow-xs);
+  transition: box-shadow 0.2s, transform 0.2s; position: relative; overflow: hidden;
+}
+.scope-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.scope-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--teal), var(--teal-d)); }
+.scope-icon { font-size: 22px; margin-bottom: 10px; }
+.scope-name { font-size: 13px; font-weight: 500; color: var(--ink); line-height: 1.4; margin-bottom: 4px; }
+.scope-sub { font-size: 11px; color: var(--muted2); line-height: 1.4; }
+.excl-note {
+  background: var(--off); border: 1px solid var(--border); border-left: 3px solid var(--gold);
+  border-radius: var(--r-sm); padding: 14px 18px;
+  font-size: 13px; color: var(--muted); line-height: 1.7;
+}
+.excl-note strong { color: var(--ink2); font-weight: 500; }
+
+/* ── PROCESS ── */
+.process-track { display: grid; grid-template-columns: repeat(4,1fr); position: relative; }
+.process-track::before {
+  content: ''; position: absolute; top: 20px;
+  left: calc(12.5% + 20px); right: calc(12.5% + 20px);
+  height: 1px; background: linear-gradient(90deg, var(--teal), var(--gold), var(--teal)); opacity: 0.35;
+}
+.step { padding: 0 20px; position: relative; }
+.step-num {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--white); border: 2px solid var(--teal); color: var(--teal);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 600; margin-bottom: 18px; position: relative; z-index: 1;
+  box-shadow: 0 0 0 4px var(--teal-xl);
+}
+.step-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 8px; letter-spacing: 0.01em; }
+.step-desc { font-size: 13px; color: var(--muted); line-height: 1.65; font-weight: 300; }
+
+/* ── GALLERY ── */
+.gallery { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+.gallery-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: var(--r-md);
+  overflow: hidden; box-shadow: var(--shadow-xs);
+  transition: box-shadow 0.25s, transform 0.25s; cursor: zoom-in;
+}
+.gallery-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+.gallery-img-wrap { width: 100%; aspect-ratio: 4/3; background: var(--off); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.gallery-img-wrap img { width: 100%; height: 100%; object-fit: contain; display: block; transition: transform 0.3s; padding: 6px; }
+.gallery-card:hover .gallery-img-wrap img { transform: scale(1.04); }
+.gallery-meta { padding: 12px 16px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+.gallery-name { font-size: 12px; font-weight: 500; color: var(--ink2); }
+.gallery-ref { font-size: 10px; color: var(--teal); letter-spacing: 0.06em; font-family: 'Outfit', monospace; }
+
+/* ── BOQ TABLE ── */
+.table-wrap { background: var(--white); border: 1px solid var(--border); border-radius: var(--r-md); box-shadow: var(--shadow-sm); overflow: hidden; }
+.table-note { background: var(--teal-xl); border-bottom: 1px solid rgba(42,157,143,0.15); padding: 12px 20px; font-size: 12px; color: var(--teal-d); display: flex; align-items: center; gap: 8px; }
+.boq { width: 100%; border-collapse: collapse; font-size: 13px; }
+.boq thead th {
+  padding: 11px 14px; text-align: left;
+  font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted); background: var(--off); border-bottom: 2px solid var(--border2); white-space: nowrap;
+}
+.boq thead th:nth-child(4),
+.boq thead th:nth-child(6),
+.boq thead th:nth-child(7) { text-align: right; }
+.boq thead th:nth-child(5) { text-align: center; }
+.boq td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink2); }
+.boq td:nth-child(4) { text-align: right; font-variant-numeric: tabular-nums; }
+.boq td:nth-child(5) { text-align: center; }
+.boq td:nth-child(6),
+.boq td:last-child { text-align: right; font-variant-numeric: tabular-nums; font-weight: 400; }
+.boq td:last-child { font-weight: 500; }
+.boq tr:last-child td { border-bottom: none; }
+.boq tbody tr:hover td { background: var(--teal-xl); transition: background 0.15s; }
+.sect td { background: var(--ink2) !important; color: var(--white) !important; font-size: 10px !important; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 9px 14px !important; border-bottom: none !important; }
+.sect:hover td { background: var(--ink2) !important; }
+.sub td { background: var(--teal-xl) !important; font-weight: 500 !important; font-size: 12px !important; color: var(--teal-d) !important; border-top: 1px solid rgba(42,157,143,0.18) !important; border-bottom: 1px solid rgba(42,157,143,0.18) !important; }
+.sub:hover td { background: var(--teal-xl) !important; }
+.grand td { background: var(--teal) !important; color: #fff !important; font-size: 14px !important; font-weight: 500 !important; border: none !important; padding: 16px 14px !important; }
+.grand td:last-child { font-family: 'Cormorant Garamond', serif; font-size: 22px !important; font-weight: 600 !important; letter-spacing: 0.02em; }
+.grand:hover td { background: var(--teal) !important; }
+.ref { font-family: 'Outfit', monospace; font-size: 11px; color: var(--teal); font-weight: 500; white-space: nowrap; }
+.spec { font-size: 11px; color: var(--muted2); font-weight: 300; line-height: 1.5; }
+.boq-note { padding: 12px 20px; font-size: 11px; color: var(--muted2); font-style: italic; border-top: 1px solid var(--border); background: var(--off); }
+
+/* ── ASSUMPTIONS ── */
+.assumptions-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+.assum-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: var(--r-md);
+  padding: 20px; box-shadow: var(--shadow-xs); transition: box-shadow 0.2s;
+  position: relative; overflow: hidden;
+}
+.assum-card:hover { box-shadow: var(--shadow-sm); }
+.assum-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; }
+.assum-card.s-confirmed::before { background: var(--teal); }
+.assum-card.s-assumed::before  { background: var(--gold); }
+.assum-card.s-excluded::before { background: var(--muted2); }
+.assum-card.s-calculated::before { background: #6c8ebf; }
+.assum-card.s-rfi::before      { background: #e07a3a; }
+.assum-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; gap: 8px; }
+.assum-ref { font-family: 'Outfit', monospace; font-size: 10px; font-weight: 500; color: var(--muted2); letter-spacing: 0.08em; }
+.status { font-size: 9px; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; padding: 3px 9px; border-radius: 100px; white-space: nowrap; flex-shrink: 0; }
+.s-confirmed .status { background: var(--teal-l); color: var(--teal-d); }
+.s-assumed   .status { background: var(--gold-l); color: #7a5a10; }
+.s-excluded  .status { background: var(--surface); color: var(--muted); }
+.s-calculated .status { background: #e8eef7; color: #3d5c8a; }
+.s-rfi       .status { background: #fef0e6; color: #b05a1a; }
+.assum-title { font-size: 13px; font-weight: 500; color: var(--ink); line-height: 1.45; margin-bottom: 8px; }
+.assum-basis { font-size: 11.5px; color: var(--muted); line-height: 1.65; font-weight: 300; }
+
+/* ── RFI ── */
+.rfi-list { display: flex; flex-direction: column; gap: 12px; }
+.rfi-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: var(--r-md);
+  padding: 20px 24px; display: grid; grid-template-columns: 96px 1fr auto;
+  gap: 20px; align-items: start; box-shadow: var(--shadow-xs); transition: box-shadow 0.2s;
+}
+.rfi-card:hover { box-shadow: var(--shadow-sm); }
+.rfi-num-wrap { display: flex; flex-direction: column; gap: 6px; }
+.rfi-num { font-family: 'Outfit', monospace; font-size: 11px; font-weight: 500; color: var(--teal); letter-spacing: 0.08em; }
+.rfi-impact { font-size: 10px; color: var(--muted2); line-height: 1.4; }
+.rfi-subject { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 6px; }
+.rfi-q { font-size: 13px; color: var(--muted); line-height: 1.65; font-weight: 300; }
+.rfi-open { font-size: 10px; font-weight: 500; letter-spacing: 0.09em; text-transform: uppercase; padding: 4px 12px; background: #fef0e6; color: #b05a1a; border: 1px solid rgba(176,90,26,0.2); border-radius: 100px; white-space: nowrap; align-self: start; }
+
+/* ── DELIVERABLE ── */
+.deliverable-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+.deliv-card {
+  background: var(--white); border: 1px solid var(--border); border-radius: var(--r-md);
+  padding: 24px 18px; box-shadow: var(--shadow-xs); text-align: center;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.deliv-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.deliv-icon { font-size: 28px; margin-bottom: 12px; display: block; }
+.deliv-name { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 8px; }
+.deliv-desc { font-size: 11.5px; color: var(--muted2); line-height: 1.6; font-weight: 300; }
+
+/* ── SKILLS STRIP ── */
+.skills-strip {
+  background: linear-gradient(135deg, var(--ink) 0%, var(--ink2) 100%);
+  border-radius: var(--r-lg); padding: 48px 52px; margin-top: 72px;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;
+  position: relative; overflow: hidden;
+}
+.skills-strip::before {
+  content: ''; position: absolute; top: -60px; right: -60px;
+  width: 260px; height: 260px;
+  background: radial-gradient(circle, rgba(42,157,143,0.16) 0%, transparent 70%);
+  pointer-events: none;
+}
+.skills-strip::after {
+  content: ''; position: absolute; bottom: -60px; left: 18%;
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(201,168,76,0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+.skills-left h2 { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 600; color: #fff; line-height: 1.25; margin-bottom: 14px; }
+.skills-left h2 em { font-style: italic; color: var(--teal); }
+.skills-left p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.72; font-weight: 300; }
+.skills-right { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.skill-chip {
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--r-sm); padding: 10px 14px;
+  font-size: 12px; color: rgba(255,255,255,0.78);
+  font-weight: 300; display: flex; align-items: center; gap: 8px;
+}
+.skill-chip span { font-size: 14px; }
+
+/* ── FOOTER ── */
+footer { border-top: 1px solid var(--border); padding: 40px 48px; background: var(--off); }
+.footer-inner { max-width: 1160px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+.footer-brand { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 600; color: var(--ink); }
+.footer-brand span { color: var(--teal); }
+.footer-note { font-size: 12px; color: var(--muted2); text-align: center; line-height: 1.65; }
+.footer-link a { font-size: 13px; color: var(--teal); text-decoration: none; display: flex; align-items: center; gap: 6px; font-weight: 400; transition: gap 0.2s; }
+.footer-link a:hover { gap: 10px; text-decoration: underline; }
+
+/* ── ANIMATION ── */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+.hero-inner > * { animation: fadeUp 0.55s ease both; }
+.hero-inner > *:nth-child(2) { animation-delay: 0.1s; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 960px) {
+  .topnav { padding: 0 24px; }
+  .hero { padding: 60px 24px 56px; }
+  .hero-inner { grid-template-columns: 1fr; gap: 36px; }
+  .page { padding: 0 24px 80px; }
+  .overview-grid { grid-template-columns: 1fr; }
+  .scope-grid { grid-template-columns: repeat(3,1fr); }
+  .process-track { grid-template-columns: 1fr 1fr; gap: 24px; }
+  .process-track::before { display: none; }
+  .gallery { grid-template-columns: 1fr 1fr; }
+  .assumptions-grid { grid-template-columns: 1fr 1fr; }
+  .rfi-card { grid-template-columns: 1fr; }
+  .deliverable-grid { grid-template-columns: 1fr 1fr; }
+  .skills-strip { grid-template-columns: 1fr; padding: 32px 28px; }
+  .footer-inner { flex-direction: column; text-align: center; }
+  .nav-links { display: none; }
+}
+@media (max-width: 600px) {
+  .scope-grid { grid-template-columns: 1fr 1fr; }
+  .gallery { grid-template-columns: 1fr; }
+  .assumptions-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="https://rdichos-pro.github.io" class="nav-brand">Rhina Mae <span>Dichos</span></a>
+    <ul class="nav-links">
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#scope">Scope</a></li>
+      <li><a href="#drawings">Drawings</a></li>
+      <li><a href="#boq">BOQ</a></li>
+      <li><a href="#assumptions">Assumptions</a></li>
+      <li><a href="#rfi">RFIs</a></li>
+    </ul>
+    <a href="https://rdichos-pro.github.io" class="nav-back">← Back to Portfolio</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">Estimating Portfolio — Case Study 001</div>
+      <h1>Residential Finishes<br><em>Take-Off & BOQ</em></h1>
+      <p class="hero-sub">A complete Bill of Quantities for the finishes trade on a double-storey residential project — measured from a full set of architectural construction drawings using AIQS conventions.</p>
+      <div class="hero-tags">
+        <span class="tag tag-teal">Material Take-Off</span>
+        <span class="tag tag-teal">BOQ Preparation</span>
+        <span class="tag">AS3740 Compliance</span>
+        <span class="tag">AIQS Standards</span>
+        <span class="tag">Assumptions Register</span>
+        <span class="tag">RFI Management</span>
+      </div>
+    </div>
+    <div class="hero-panel">
+      <p class="panel-label">Project Snapshot</p>
+      <div class="stat-row"><span class="stat-key">Total Finishes</span><span class="stat-val">$47K<span class="stat-unit">AUD</span></span></div>
+      <div class="stat-row"><span class="stat-key">Trade Sections</span><span class="stat-val">4</span></div>
+      <div class="stat-row"><span class="stat-key">Line Items</span><span class="stat-val">28</span></div>
+      <div class="stat-row"><span class="stat-key">Total Area</span><span class="stat-val">242<span class="stat-unit">sqm</span></span></div>
+      <div class="stat-row"><span class="stat-key">Assumptions</span><span class="stat-val">15</span></div>
+      <div class="stat-row"><span class="stat-key">Open RFIs</span><span class="stat-val">4</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN -->
+<div class="page">
+
+  <!-- 01 OVERVIEW -->
+  <div class="section" id="overview">
+    <div class="section-head">
+      <div class="section-num">01</div>
+      <h2 class="section-title">Project Overview</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="overview-grid">
+      <div class="overview-body">
+        <p>This case study presents a complete finishes take-off and Bill of Quantities prepared from a set of 20 architectural construction drawings (Issue B — Construction) for a double-storey residential project in Victoria, Australia. All project-identifying details have been anonymised.</p>
+        <p>Quantities were measured directly from scaled drawings at 1:100 (floor plans, elevations) and 1:50 (internal room elevations), applying standard Australian estimating conventions. Openings ≥1.0m² were deducted from wall areas in accordance with AIQS guidelines; openings below this threshold were absorbed into the unit rate.</p>
+        <p>The deliverable demonstrates full competency across the estimating workflow — from reading and interpreting construction drawings, through measurement and assumption documentation, to producing a commercially usable, audit-ready BOQ with transparent methodology that can be reviewed, challenged, or repriced by any project stakeholder.</p>
+      </div>
+      <div class="detail-card">
+        <div class="detail-card-head"><span>📋 Project Details</span></div>
+        <div class="detail-rows">
+          <div class="detail-row"><span class="dk">Building Type</span><span class="dv">Double Storey Residence</span></div>
+          <div class="detail-row"><span class="dk">Total GFA</span><span class="dv">242.37 sqm</span></div>
+          <div class="detail-row"><span class="dk">Ground Floor</span><span class="dv">89.78 sqm</span></div>
+          <div class="detail-row"><span class="dk">First Floor</span><span class="dv">110.61 sqm</span></div>
+          <div class="detail-row"><span class="dk">Drawing Set</span><span class="dv dv-mono">A01 — A20</span></div>
+          <div class="detail-row"><span class="dk">Scale</span><span class="dv dv-mono">1:100 / 1:50</span></div>
+          <div class="detail-row"><span class="dk">Standard</span><span class="dv"><span class="pill pill-teal">AIQS</span></span></div>
+          <div class="detail-row"><span class="dk">Location</span><span class="dv">Victoria, AUS</span></div>
+          <div class="detail-row"><span class="dk">Issue</span><span class="dv"><span class="pill pill-gold">Construction</span></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 SCOPE -->
+  <div class="section" id="scope">
+    <div class="section-head">
+      <div class="section-num">02</div>
+      <h2 class="section-title">Scope of Works</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="scope-grid">
+      <div class="scope-card"><div class="scope-icon">🪵</div><div class="scope-name">Floor Finishes</div><div class="scope-sub">Hybrid Floorboard, Floor Tiles, Concrete Broom Finish</div></div>
+      <div class="scope-card"><div class="scope-icon">🧱</div><div class="scope-name">External Walls</div><div class="scope-sub">Face Brickwork, Render Colour #1 & #2</div></div>
+      <div class="scope-card"><div class="scope-icon">🚿</div><div class="scope-name">Internal Wet Areas</div><div class="scope-sub">Wall Tiles, Skirting Tiles, Splashback</div></div>
+      <div class="scope-card"><div class="scope-icon">🎨</div><div class="scope-name">Internal Paint</div><div class="scope-sub">Ceiling, Wall & Wet Room Paint Systems</div></div>
+      <div class="scope-card"><div class="scope-icon">📐</div><div class="scope-name">Bulkhead Finishes</div><div class="scope-sub">Kitchen Island Bulkhead Paint</div></div>
+    </div>
+    <div class="excl-note"><strong>Exclusions:</strong> Roof sheeting, gutters, fascia, downpipes & parapet capping · Structural elements, timber framing & engineering · Waste factors (10–15% tiles, 5–10% floorboard — to be applied by contractor) · All quantities are net measured areas · GST not included</div>
+  </div>
+
+  <!-- 03 METHODOLOGY -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">03</div>
+      <h2 class="section-title">Methodology</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="process-track">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-title">Drawing Review</div>
+        <div class="step-desc">Reviewed the full 20-sheet construction drawing set. Identified all finish items and cross-referenced floor plans with internal elevation drawings and schedules.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-title">Dimension Take-Off</div>
+        <div class="step-desc">Measured quantities from scaled drawings. Applied AIQS deduction rules — openings ≥1.0m² deducted. Slope factor 1.276 calculated for raking stair soffit areas.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-title">Assumptions Register</div>
+        <div class="step-desc">Every interpretive decision formally logged with basis, drawing reference, and status. 15 assumptions documented across 4 categories with full audit trail.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-title">BOQ & Pricing</div>
+        <div class="step-desc">Quantities entered into a structured 4-sheet Excel workbook with description, specification notes, unit, rate, and extended amount. Trade subtotals with grand total.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 DRAWINGS -->
+  <div class="section" id="drawings">
+    <div class="section-head">
+      <div class="section-num">04</div>
+      <h2 class="section-title">Source Drawings</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="gallery">
+      <div class="gallery-card">
+        <div class="gallery-img-wrap"><img src="GF_Plan.png" alt="Ground Floor Plan A03" /></div>
+        <div class="gallery-meta"><span class="gallery-name">Ground Floor Plan</span><span class="gallery-ref">Dwg A03 · 1:100</span></div>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-img-wrap"><img src="FF_Plan.png" alt="First Floor Plan A04" /></div>
+        <div class="gallery-meta"><span class="gallery-name">First Floor Plan</span><span class="gallery-ref">Dwg A04 · 1:100</span></div>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-img-wrap"><img src="East___South_Elevation.png" alt="East & South Elevation A07" /></div>
+        <div class="gallery-meta"><span class="gallery-name">East & South Elevation</span><span class="gallery-ref">Dwg A07 · 1:100</span></div>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-img-wrap"><img src="Kitchen___Laundry.png" alt="Kitchen & Laundry Elevations A11" /></div>
+        <div class="gallery-meta"><span class="gallery-name">Kitchen & Laundry Elevations</span><span class="gallery-ref">Dwg A11 · 1:50</span></div>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-img-wrap"><img src="Bath_1_Elevation.png" alt="Bath 1 Elevations A12" /></div>
+        <div class="gallery-meta"><span class="gallery-name">Bath 1 Internal Elevations</span><span class="gallery-ref">Dwg A12 · 1:50</span></div>
+      </div>
+      <div class="gallery-card">
+        <div class="gallery-img-wrap"><img src="Ensuite_Elevation.png" alt="Ensuite Elevations A14" /></div>
+        <div class="gallery-meta"><span class="gallery-name">Ensuite Internal Elevations</span><span class="gallery-ref">Dwg A14 · 1:50</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 05 BOQ -->
+  <div class="section" id="boq">
+    <div class="section-head">
+      <div class="section-num">05</div>
+      <h2 class="section-title">Bill of Quantities</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="table-wrap">
+      <div class="table-note">ℹ️ &nbsp;Net measured quantities — no waste. Rates indicative. Waste allowances & GST to be added by contractor. Tile selection subject to RFI 003.</div>
+      <table class="boq">
+        <thead>
+          <tr>
+            <th style="width:62px">Ref</th>
+            <th>Description</th>
+            <th>Specification Notes</th>
+            <th style="width:58px">Qty</th>
+            <th style="width:50px">Unit</th>
+            <th style="width:82px">Rate (AUD)</th>
+            <th style="width:105px">Amount (AUD)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="sect"><td colspan="7">A — Floor Finishes</td></tr>
+          <tr><td class="ref">A.01</td><td>GF — Hybrid Floorboard</td><td class="spec">Supply & lay to all GF habitable rooms. Colour TBC. Excl. porch & garage.</td><td>63.34</td><td>SQ M</td><td>$90</td><td>$5,700.60</td></tr>
+          <tr><td class="ref">A.02</td><td>FF — Hybrid Floorboard</td><td class="spec">Supply & lay to all FF habitable rooms incl. WIR. Colour TBC.</td><td>75.97</td><td>SQ M</td><td>$90</td><td>$6,837.30</td></tr>
+          <tr><td class="ref">A.03</td><td>GF — Concrete Floor Finish</td><td class="spec">Garage floor. Broom finish to exposed slab. FFL: 10.700.</td><td>34.05</td><td>SQ M</td><td>$58</td><td>$1,974.90</td></tr>
+          <tr><td class="ref">A.04</td><td>GF — Floor Tiles</td><td class="spec">Supply & lay to GF wet areas — Bath 1 & Laundry. Size & colour TBC.</td><td>9.58</td><td>SQ M</td><td>$85</td><td>$814.30</td></tr>
+          <tr><td class="ref">A.05</td><td>FF — Floor Tiles</td><td class="spec">Supply & lay to FF wet areas — Bath 2, Ensuite, WC1 & WC2. Size & colour TBC.</td><td>13.64</td><td>SQ M</td><td>$85</td><td>$1,159.40</td></tr>
+          <tr class="sub"><td colspan="3">Subtotal — Floor Finishes</td><td>196.58</td><td>SQ M</td><td>—</td><td>$16,486.50</td></tr>
+
+          <tr class="sect"><td colspan="7">B — External Wall Finishes</td></tr>
+          <tr><td class="ref">B.01</td><td>Brickwork — Face Brick (W & N Elev)</td><td class="spec">GF zone. Dwg A06. Colour & bond TBC. Excl. openings ≥1.0m².</td><td>55.53</td><td>SQ M</td><td>$110</td><td>$6,108.30</td></tr>
+          <tr><td class="ref">B.02</td><td>Render Colour #1 (W & N Elev)</td><td class="spec">FF zone. Dwg A06. Colour TBC. Excl. openings ≥1.0m².</td><td>14.52</td><td>SQ M</td><td>$58</td><td>$842.16</td></tr>
+          <tr><td class="ref">B.03</td><td>Render Colour #2 (W & N Elev)</td><td class="spec">FF zone. Dwg A06. Colour TBC. Excl. openings ≥1.0m².</td><td>41.53</td><td>SQ M</td><td>$58</td><td>$2,408.74</td></tr>
+          <tr><td class="ref">B.04</td><td>Brickwork — Face Brick (E & S Elev)</td><td class="spec">GF zone incl. parapet (de minimis absorbed). Dwg A07. Excl. openings ≥1.0m².</td><td>65.12</td><td>SQ M</td><td>$110</td><td>$7,163.20</td></tr>
+          <tr><td class="ref">B.05</td><td>Render Colour #1 (E & S Elev)</td><td class="spec">Dwg A07. Parapet assumed Colour #1 — see RFI 001.</td><td>1.98</td><td>SQ M</td><td>$58</td><td>$114.84</td></tr>
+          <tr><td class="ref">B.06</td><td>Render Colour #2 (E & S Elev)</td><td class="spec">Dwg A07. Excl. openings ≥1.0m².</td><td>41.61</td><td>SQ M</td><td>$58</td><td>$2,413.38</td></tr>
+          <tr class="sub"><td colspan="3">Subtotal — External Wall Finishes</td><td>220.29</td><td>SQ M</td><td>—</td><td>$19,050.62</td></tr>
+
+          <tr class="sect"><td colspan="7">C — Internal Wet Area Finishes</td></tr>
+          <tr><td class="ref">C.01</td><td>Splashback Tile — Kitchen</td><td class="spec">Above cooktop zone. Dwg A11 Elev 1-A.</td><td>1.24</td><td>SQ M</td><td>$120</td><td>$148.80</td></tr>
+          <tr><td class="ref">C.02</td><td>Wall Tiles — Bath 1</td><td class="spec">Shower zone to 2100mm & vanity splashback. Dwg A12.</td><td>4.27</td><td>SQ M</td><td>$95</td><td>$405.65</td></tr>
+          <tr><td class="ref">C.03</td><td>Wall Tiles — Bath 2</td><td class="spec">Shower zone to 2100mm & vanity splashback. Dwg A13.</td><td>4.48</td><td>SQ M</td><td>$95</td><td>$425.60</td></tr>
+          <tr><td class="ref">C.04</td><td>Wall Tiles — Ensuite</td><td class="spec">Shower zone to 2100mm & vanity splashback. Dwg A14.</td><td>7.29</td><td>SQ M</td><td>$95</td><td>$692.55</td></tr>
+          <tr><td class="ref">C.05</td><td>Skirting Tiles — Bath 1</td><td class="spec">Base of tiled walls. Excl. shower zone. Dwg A12.</td><td>6.63</td><td>LM</td><td>$45</td><td>$298.35</td></tr>
+          <tr><td class="ref">C.06</td><td>Skirting Tiles — Bath 2</td><td class="spec">Base of tiled walls. Excl. shower zone. Dwg A13.</td><td>6.52</td><td>LM</td><td>$45</td><td>$293.40</td></tr>
+          <tr><td class="ref">C.07</td><td>Skirting Tiles — Ensuite</td><td class="spec">Base of tiled walls. Excl. shower zone. Dwg A14.</td><td>4.55</td><td>LM</td><td>$45</td><td>$204.75</td></tr>
+          <tr><td class="ref">C.08</td><td>Skirting Tiles — WC 1</td><td class="spec">Full perimeter. Dwg A15.</td><td>4.82</td><td>LM</td><td>$45</td><td>$216.90</td></tr>
+          <tr><td class="ref">C.09</td><td>Skirting Tiles — WC 2</td><td class="spec">Full perimeter. Dwg A15.</td><td>4.17</td><td>LM</td><td>$45</td><td>$187.65</td></tr>
+          <tr><td class="ref">C.10</td><td>Skirting Tiles — Laundry</td><td class="spec">Trough/cabinet zone only per Elev 2-A, Dwg A11.</td><td>1.40</td><td>LM</td><td>$45</td><td>$63.00</td></tr>
+          <tr><td class="ref">C.11</td><td>Wet Room Wall Paint — Laundry</td><td class="spec">Moisture-resistant paint. Full wall area excl. tiled zones & openings. Dwg A11.</td><td>27.80</td><td>SQ M</td><td>$22</td><td>$611.60</td></tr>
+          <tr><td class="ref">C.12</td><td>Wet Room Wall Paint — Bath 1</td><td class="spec">Moisture-resistant paint to non-tiled walls. Dwg A12.</td><td>17.20</td><td>SQ M</td><td>$22</td><td>$378.40</td></tr>
+          <tr><td class="ref">C.13</td><td>Wet Room Wall Paint — Ensuite</td><td class="spec">Moisture-resistant paint to non-tiled walls. Dwg A14.</td><td>15.80</td><td>SQ M</td><td>$22</td><td>$347.60</td></tr>
+          <tr class="sub"><td colspan="3">Subtotal — Internal Wet Area Finishes</td><td>—</td><td>—</td><td>—</td><td>$4,274.25</td></tr>
+
+          <tr class="sect"><td colspan="7">D — Internal Paint Finishes</td></tr>
+          <tr><td class="ref">D.01</td><td>Wall Paint — GF Habitable</td><td class="spec">Standard low sheen. All GF habitable walls excl. wet rooms. Openings ≥1.0m² deducted.</td><td>183.10</td><td>SQ M</td><td>$12</td><td>$2,197.20</td></tr>
+          <tr><td class="ref">D.02</td><td>Ceiling Paint — GF</td><td class="spec">Standard ceiling paint. All GF habitable rooms. Floor-to-ceiling: 2700mm.</td><td>65.50</td><td>SQ M</td><td>$10</td><td>$655.00</td></tr>
+          <tr><td class="ref">D.03</td><td>Wet Room Ceiling Paint — GF</td><td class="spec">Moisture-resistant. GF wet areas — Bath 1, Laundry.</td><td>8.90</td><td>SQ M</td><td>$14</td><td>$124.60</td></tr>
+          <tr><td class="ref">D.04</td><td>Wall Paint — FF Habitable</td><td class="spec">Standard low sheen. All FF habitable walls excl. wet rooms. Openings ≥1.0m² deducted.</td><td>300.00</td><td>SQ M</td><td>$12</td><td>$3,600.00</td></tr>
+          <tr><td class="ref">D.05</td><td>Ceiling Paint — FF</td><td class="spec">Standard ceiling paint. All FF habitable rooms. Floor-to-ceiling: 2550mm.</td><td>86.40</td><td>SQ M</td><td>$10</td><td>$864.00</td></tr>
+          <tr><td class="ref">D.06</td><td>Wet Room Ceiling Paint — FF</td><td class="spec">Moisture-resistant. FF wet areas — Bath 2, Ensuite, WC1 & WC2.</td><td>14.80</td><td>SQ M</td><td>$14</td><td>$207.20</td></tr>
+          <tr><td class="ref">D.07</td><td>Bulkhead — Kitchen Island</td><td class="spec">All faces, soffit and sides of kitchen island bulkhead. Dwg A11.</td><td>4.20</td><td>SQ M</td><td>$12</td><td>$50.40</td></tr>
+          <tr class="sub"><td colspan="3">Subtotal — Internal Paint Finishes</td><td>—</td><td>—</td><td>—</td><td>$7,698.40</td></tr>
+
+          <tr class="grand">
+            <td colspan="6">Total — Finishes Works &nbsp;&nbsp;<span style="font-size:11px;opacity:0.6;font-family:'Outfit',sans-serif;font-weight:300">excl. GST · waste · P&G · margin</span></td>
+            <td>$47,509.77</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="boq-note">All rates are indicative for portfolio demonstration purposes only. Waste allowances (typically 10–15% for tiles, 5–10% for hybrid floorboard) are excluded and must be applied by the contractor. Final quantities subject to confirmation of tile sizes per RFI 003.</p>
+    </div>
+  </div>
+
+  <!-- 06 ASSUMPTIONS -->
+  <div class="section" id="assumptions">
+    <div class="section-head">
+      <div class="section-num">06</div>
+      <h2 class="section-title">Assumptions Register</h2>
+      <div class="section-divider"></div>
+    </div>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:28px;font-weight:300;line-height:1.75">Every interpretive decision made during the take-off is formally documented below. This register forms part of the deliverable and provides full audit-trail transparency for the client, contractor, and design team.</p>
+    <div class="assumptions-grid">
+      <div class="assum-card s-assumed">
+        <div class="assum-top"><span class="assum-ref">A.01 · Floor Finishes</span><span class="status">Assumed</span></div>
+        <p class="assum-title">Porch excluded from hybrid floorboard take-off</p>
+        <p class="assum-basis">No floor finish call-out on drawings. External transitional space. Bare slab assumed consistent with FFL differential (86mm stepdown). Dwg A03.</p>
+      </div>
+      <div class="assum-card s-excluded">
+        <div class="assum-top"><span class="assum-ref">A.02 · Floor Finishes</span><span class="status">Excluded</span></div>
+        <p class="assum-title">Stair treads & risers excluded from floor area</p>
+        <p class="assum-basis">Stairs priced separately per tread/riser rate. Including in m² would overstate area and risk double-counting. Dwg A03, A18.</p>
+      </div>
+      <div class="assum-card s-confirmed">
+        <div class="assum-top"><span class="assum-ref">A.03 · Floor Finishes</span><span class="status">Confirmed</span></div>
+        <p class="assum-title">Garage floor — concrete broom finish. No ceiling.</p>
+        <p class="assum-basis">Drawings specify 'concrete' for garage. Open to floor structure — no ceiling lining called out. Dwg A03, A08.</p>
+      </div>
+      <div class="assum-card s-rfi">
+        <div class="assum-top"><span class="assum-ref">A.04 · External Finishes</span><span class="status">RFI Required</span></div>
+        <p class="assum-title">Parapet finish assumed as face brickwork</p>
+        <p class="assum-basis">Parapet height aligns with GF brickwork zone. No explicit call-out on elevation. RFI 001 raised. Dwg A04, A07.</p>
+      </div>
+      <div class="assum-card s-excluded">
+        <div class="assum-top"><span class="assum-ref">A.05 · External Finishes</span><span class="status">Excluded</span></div>
+        <p class="assum-title">Parapet capping excluded from finishes scope</p>
+        <p class="assum-basis">Parapet capping is a roof/waterproofing item — outside finishes scope. To be measured under roofing trade. Dwg A05, A07.</p>
+      </div>
+      <div class="assum-card s-assumed">
+        <div class="assum-top"><span class="assum-ref">A.06 · Internal Finishes</span><span class="status">Assumed</span></div>
+        <p class="assum-title">No wall finish behind fixed joinery</p>
+        <p class="assum-basis">Fixed OHC, base cabinets, built-in shelving and island bench are permanently fixed. Painter works to cabinet line only. Dwg A11–A16.</p>
+      </div>
+      <div class="assum-card s-assumed">
+        <div class="assum-top"><span class="assum-ref">A.07 · Internal Finishes</span><span class="status">Assumed</span></div>
+        <p class="assum-title">Wall finish included behind freestanding appliances</p>
+        <p class="assum-basis">Freestanding items (fridge, WM, DW, dryer) can be relocated. Painter finishes full wall. Client may change appliance size. Dwg A11.</p>
+      </div>
+      <div class="assum-card s-confirmed">
+        <div class="assum-top"><span class="assum-ref">A.08 · Internal Paint</span><span class="status">Confirmed</span></div>
+        <p class="assum-title">Openings ≥1.0m² deducted per AIQS guidelines</p>
+        <p class="assum-basis">Standard Australian estimating practice. Openings &lt;1.0m² absorbed into rate (de minimis). Applied to all wall paint items. Dwg A08 Schedule.</p>
+      </div>
+      <div class="assum-card s-confirmed">
+        <div class="assum-top"><span class="assum-ref">A.09 · Internal Paint</span><span class="status">Confirmed</span></div>
+        <p class="assum-title">Kitchen classified as standard paint — not wet room</p>
+        <p class="assum-basis">Kitchen not classified as wet area under AS3740. Standard low sheen system applies. Splashback above cooktop = tiles. Dwg A11.</p>
+      </div>
+      <div class="assum-card s-assumed">
+        <div class="assum-top"><span class="assum-ref">A.10 · Internal Paint</span><span class="status">Assumed</span></div>
+        <p class="assum-title">Laundry ceiling — moisture resistant paint applied</p>
+        <p class="assum-basis">Laundry classified as wet area under AS3740. Steam & moisture from WM and trough. Moisture-resistant ceiling paint recommended. Dwg A11.</p>
+      </div>
+      <div class="assum-card s-calculated">
+        <div class="assum-top"><span class="assum-ref">A.11 · Internal Paint</span><span class="status">Calculated</span></div>
+        <p class="assum-title">Stair soffit slope factor 1.276 applied</p>
+        <p class="assum-basis">Rise 190mm / Tread 240mm per Dwg A18. Slope Factor = √(1 + (190/240)²) = 1.276. Applied to raking stair soffit area only.</p>
+      </div>
+      <div class="assum-card s-excluded">
+        <div class="assum-top"><span class="assum-ref">A.15 · General</span><span class="status">Excluded</span></div>
+        <p class="assum-title">Waste factors not included in quantities</p>
+        <p class="assum-basis">All quantities are net measured areas. Waste factors (10–15% tiles, 5–10% floorboard) to be applied by contractor. Refer RFI 003.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 07 RFIs -->
+  <div class="section" id="rfi">
+    <div class="section-head">
+      <div class="section-num">07</div>
+      <h2 class="section-title">Requests for Information</h2>
+      <div class="section-divider"></div>
+    </div>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:24px;font-weight:300;line-height:1.75">4 RFIs were raised during the take-off process. All are currently open — pending architect response. Resolution of these items will affect final quantities and confirmed pricing.</p>
+    <div class="rfi-list">
+      <div class="rfi-card">
+        <div class="rfi-num-wrap"><span class="rfi-num">RFI 001</span><span class="rfi-impact">Impact: Brickwork & render quantities</span></div>
+        <div><p class="rfi-subject">Parapet Wall Finish Specification</p><p class="rfi-q">South and West parapet finish is not explicitly called out on elevation drawings A06/A07. Finish assumed as face brickwork consistent with the GF zone. Please confirm finish specification for parapet walls to allow accurate pricing.</p></div>
+        <span class="rfi-open">Open</span>
+      </div>
+      <div class="rfi-card">
+        <div class="rfi-num-wrap"><span class="rfi-num">RFI 002</span><span class="rfi-impact">Impact: Roofing / waterproofing trade</span></div>
+        <div><p class="rfi-subject">Parapet Capping Specification</p><p class="rfi-q">Top-of-parapet capping/flashing specification is not shown on drawings. Please confirm capping type, material, and colour to allow measurement under the roofing trade package.</p></div>
+        <span class="rfi-open">Open</span>
+      </div>
+      <div class="rfi-card">
+        <div class="rfi-num-wrap"><span class="rfi-num">RFI 003</span><span class="rfi-impact">Impact: All tile line items</span></div>
+        <div><p class="rfi-subject">Tile Sizes & Client Colour Selection</p><p class="rfi-q">All wet area floor and wall tiles are noted as 'selected tile' on drawings. Please provide the client colour selection schedule including tile sizes, colours, and brands to finalise quantities and confirm pricing.</p></div>
+        <span class="rfi-open">Open</span>
+      </div>
+      <div class="rfi-card">
+        <div class="rfi-num-wrap"><span class="rfi-num">RFI 004</span><span class="rfi-impact">Impact: Minor — confirm or vary</span></div>
+        <div><p class="rfi-subject">Kitchen Floor Finish Confirmation</p><p class="rfi-q">Kitchen floor finish is not explicitly called out on floor plan A03. Assumed hybrid floorboard consistent with the adjacent living and dining areas. Please confirm or advise if a different finish applies.</p></div>
+        <span class="rfi-open">Open</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 08 DELIVERABLE -->
+  <div class="section">
+    <div class="section-head">
+      <div class="section-num">08</div>
+      <h2 class="section-title">Deliverable Structure</h2>
+      <div class="section-divider"></div>
+    </div>
+    <div class="deliverable-grid">
+      <div class="deliv-card"><span class="deliv-icon">📄</span><p class="deliv-name">Cover Page</p><p class="deliv-desc">Project details, scope of works, exclusions list, and document control information.</p></div>
+      <div class="deliv-card"><span class="deliv-icon">📊</span><p class="deliv-name">Detailed BOQ</p><p class="deliv-desc">28 line items across 4 trade sections with item ref, description, spec notes, qty, unit, rate, and amount.</p></div>
+      <div class="deliv-card"><span class="deliv-icon">📈</span><p class="deliv-name">Summary Dashboard</p><p class="deliv-desc">Quantities summary by trade with area totals, subtotals, and grand total for at-a-glance review.</p></div>
+      <div class="deliv-card"><span class="deliv-icon">📋</span><p class="deliv-name">Assumptions & RFI Register</p><p class="deliv-desc">15 assumptions documented with basis, drawing ref, and status. 4 RFIs with impact statements.</p></div>
+    </div>
+  </div>
+
+  <!-- SKILLS STRIP -->
+  <div class="skills-strip">
+    <div class="skills-left">
+      <h2>Skills <em>Demonstrated</em><br>in this Case Study</h2>
+      <p>This project showcases the full estimating workflow applied to a live construction drawing set — from first-principles measurement through to a commercially ready, audit-ready deliverable.</p>
+    </div>
+    <div class="skills-right">
+      <div class="skill-chip"><span>📐</span> Material Take-Off</div>
+      <div class="skill-chip"><span>📋</span> BOQ Preparation</div>
+      <div class="skill-chip"><span>🏗️</span> Drawing Interpretation</div>
+      <div class="skill-chip"><span>⚖️</span> AIQS Standards</div>
+      <div class="skill-chip"><span>🔍</span> AS3740 Compliance</div>
+      <div class="skill-chip"><span>📊</span> Excel Workbook Design</div>
+      <div class="skill-chip"><span>📝</span> Assumptions Register</div>
+      <div class="skill-chip"><span>💬</span> RFI Management</div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<footer>
+  <div class="footer-inner">
+    <span class="footer-brand">Rhina Mae <span>Dichos</span></span>
+    <p class="footer-note">Project details anonymised. All quantities and drawings used for portfolio demonstration only.<br>Rates are indicative. © 2026 Rhina Mae Dichos. All rights reserved.</p>
+    <div class="footer-link"><a href="https://rdichos-pro.github.io">← Back to Portfolio</a></div>
+  </div>
+</footer>
+
+</body>
+</html>
