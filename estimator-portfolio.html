@@ -545,32 +545,48 @@ footer { border-top: 1px solid var(--border); padding: 40px 48px; background: va
       <div class="section-num">04</div>
       <h2 class="section-title">Source Drawings</h2>
       <div class="section-divider"></div>
+    <!-- Updated Gallery with Zoom Function -->
     <div class="gallery">
-      <div class="gallery-card">
-        <div class="gallery-img-wrap"><img src="GF Plan.png" alt="Ground Floor Plan" /></div>
-        <div class="gallery-meta"><span class="gallery-name">Ground Floor Plan</span><span class="gallery-ref">Dwg A03 · 1:100</span></div>
+      <div class="gallery-card" onclick="openModal(this)">
+        <div class="gallery-img-wrap"><img src="GF Plan.png" alt="Ground Floor Plan Swift Take-off" /></div>
+        <div class="gallery-meta"><span class="gallery-name">PlanSwift: Ground Floor</span><span class="gallery-ref">Click to Zoom 🔍</span></div>
       </div>
-      <div class="gallery-card">
-        <div class="gallery-img-wrap"><img src="FF Plan.png" alt="First Floor Plan" /></div>
-        <div class="gallery-meta"><span class="gallery-name">First Floor Plan</span><span class="gallery-ref">Dwg A04 · 1:100</span></div>
+      <div class="gallery-card" onclick="openModal(this)">
+        <div class="gallery-img-wrap"><img src="FF Plan.png" alt="First Floor Plan Swift Take-off" /></div>
+        <div class="gallery-meta"><span class="gallery-name">PlanSwift: First Floor</span><span class="gallery-ref">Click to Zoom 🔍</span></div>
       </div>
-      <div class="gallery-card">
-        <div class="gallery-img-wrap"><img src="East & South Elevation.png" alt="East & South Elevation" /></div>
-        <div class="gallery-meta"><span class="gallery-name">East & South Elevation</span><span class="gallery-ref">Dwg A07 · 1:100</span></div>
+      <div class="gallery-card" onclick="openModal(this)">
+        <div class="gallery-img-wrap"><img src="East & South Elevation.png" alt="Elevation Measurements" /></div>
+        <div class="gallery-meta"><span class="gallery-name">Elevations Take-off</span><span class="gallery-ref">Click to Zoom 🔍</span></div>
       </div>
-      <div class="gallery-card">
-        <div class="gallery-img-wrap"><img src="Kitchen & Laundry.png" alt="Kitchen & Laundry Elevations" /></div>
-        <div class="gallery-meta"><span class="gallery-name">Kitchen & Laundry Elevations</span><span class="gallery-ref">Dwg A11 · 1:50</span></div>
+      <div class="gallery-card" onclick="openModal(this)">
+        <div class="gallery-img-wrap"><img src="Kitchen & Laundry.png" alt="Internal Elevations" /></div>
+        <div class="gallery-meta"><span class="gallery-name">Wet Area Detailing</span><span class="gallery-ref">Click to Zoom 🔍</span></div>
       </div>
-      <div class="gallery-card">
-        <div class="gallery-img-wrap"><img src="Bath 1 Elevation.png" alt="Bath 1 Elevations" /></div>
-        <div class="gallery-meta"><span class="gallery-name">Bath 1 Internal Elevations</span><span class="gallery-ref">Dwg A12 · 1:50</span></div>
+      <div class="gallery-card" onclick="openModal(this)">
+        <div class="gallery-img-wrap"><img src="Bath 1 Elevation.png" alt="Bath 1 Take-off" /></div>
+        <div class="gallery-meta"><span class="gallery-name">Bath 1 Vertical Surface</span><span class="gallery-ref">Click to Zoom 🔍</span></div>
       </div>
-      <div class="gallery-card">
-        <div class="gallery-img-wrap"><img src="Ensuite Elevation.png" alt="Ensuite Elevations" /></div>
-        <div class="gallery-meta"><span class="gallery-name">Ensuite Internal Elevations</span><span class="gallery-ref">Dwg A14 · 1:50</span></div>
+      <div class="gallery-card" onclick="openModal(this)">
+        <div class="gallery-img-wrap"><img src="Ensuite Elevation.png" alt="Ensuite Take-off" /></div>
+        <div class="gallery-meta"><span class="gallery-name">Ensuite Vertical Surface</span><span class="gallery-ref">Click to Zoom 🔍</span></div>
       </div>
     </div>
+
+    <!-- Modal for Zooming Images -->
+    <div id="imageModal" style="display:none; position:fixed; z-index:1000; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); cursor:zoom-out; align-items:center; justify-content:center;" onclick="this.style.display='none'">
+        <img id="modalImg" style="max-width:95%; max-height:95%; border:2px solid white; box-shadow:0 0 30px rgba(0,0,0,0.5);">
+    </div>
+
+    <script>
+      function openModal(card) {
+        const img = card.querySelector('img');
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImg');
+        modal.style.display = 'flex';
+        modalImg.src = img.src;
+      }
+    </script>
     </div>
     </div>
   </div>
@@ -598,50 +614,19 @@ footer { border-top: 1px solid var(--border); padding: 40px 48px; background: va
         </thead>
         <tbody>
           <tr class="sect"><td colspan="7">A — Floor Finishes</td></tr>
-          <tr><td class="ref">A.01</td><td>GF — Hybrid Floorboard</td><td class="spec">Supply & lay to all GF habitable rooms. Colour TBC. Excl. porch & garage.</td><td>63.34</td><td>SQ M</td><td>$90</td><td>$5,700.60</td></tr>
-          <tr><td class="ref">A.02</td><td>FF — Hybrid Floorboard</td><td class="spec">Supply & lay to all FF habitable rooms incl. WIR. Colour TBC.</td><td>75.97</td><td>SQ M</td><td>$90</td><td>$6,837.30</td></tr>
-          <tr><td class="ref">A.03</td><td>GF — Concrete Floor Finish</td><td class="spec">Garage floor. Broom finish to exposed slab. FFL: 10.700.</td><td>34.05</td><td>SQ M</td><td>$58</td><td>$1,974.90</td></tr>
-          <tr><td class="ref">A.04</td><td>GF — Floor Tiles</td><td class="spec">Supply & lay to GF wet areas — Bath 1 & Laundry. Size & colour TBC.</td><td>9.58</td><td>SQ M</td><td>$85</td><td>$814.30</td></tr>
-          <tr><td class="ref">A.05</td><td>FF — Floor Tiles</td><td class="spec">Supply & lay to FF wet areas — Bath 2, Ensuite, WC1 & WC2. Size & colour TBC.</td><td>13.64</td><td>SQ M</td><td>$85</td><td>$1,159.40</td></tr>
-          <tr class="sub"><td colspan="3">Subtotal — Floor Finishes</td><td>196.58</td><td>SQ M</td><td>—</td><td>$16,486.50</td></tr>
-
+          <tr><td class="ref">A.01</td><td>GF — Hybrid Floorboard</td><td class="spec">Supply & lay to all GF habitable rooms. Excl. porch & garage.</td><td>63.34</td><td>SQ M</td><td>$90</td><td>$5,700.60</td></tr>
+          <tr><td class="ref">A.02</td><td>FF — Hybrid Floorboard</td><td class="spec">Supply & lay to all FF habitable rooms incl. WIR.</td><td>75.97</td><td>SQ M</td><td>$90</td><td>$6,837.30</td></tr>
+          <tr><td class="ref">A.03</td><td>GF — Concrete Floor Finish</td><td class="spec">Garage floor. Broom finish to exposed slab.</td><td>34.05</td><td>SQ M</td><td>$58</td><td>$1,974.90</td></tr>
+          <tr><td class="ref">A.04</td><td>GF — Floor Tiles</td><td class="spec">Supply & lay to GF wet areas — Bath 1 & Laundry.</td><td>9.58</td><td>SQ M</td><td>$85</td><td>$814.30</td></tr>
+          <tr><td class="ref">A.05</td><td>FF — Floor Tiles</td><td class="spec">Supply & lay to FF wet areas — Bath 2, Ensuite, WC1 & WC2.</td><td>13.64</td><td>SQ M</td><td>$85</td><td>$1,159.40</td></tr>
+          
           <tr class="sect"><td colspan="7">B — External Wall Finishes</td></tr>
-          <tr><td class="ref">B.01</td><td>Brickwork — Face Brick (W & N Elev)</td><td class="spec">GF zone. Dwg A06. Colour & bond TBC. Excl. openings ≥1.0m².</td><td>55.53</td><td>SQ M</td><td>$110</td><td>$6,108.30</td></tr>
-          <tr><td class="ref">B.02</td><td>Render Colour #1 (W & N Elev)</td><td class="spec">FF zone. Dwg A06. Colour TBC. Excl. openings ≥1.0m².</td><td>14.52</td><td>SQ M</td><td>$58</td><td>$842.16</td></tr>
-          <tr><td class="ref">B.03</td><td>Render Colour #2 (W & N Elev)</td><td class="spec">FF zone. Dwg A06. Colour TBC. Excl. openings ≥1.0m².</td><td>41.53</td><td>SQ M</td><td>$58</td><td>$2,408.74</td></tr>
-          <tr><td class="ref">B.04</td><td>Brickwork — Face Brick (E & S Elev)</td><td class="spec">GF zone incl. parapet (de minimis absorbed). Dwg A07. Excl. openings ≥1.0m².</td><td>65.12</td><td>SQ M</td><td>$110</td><td>$7,163.20</td></tr>
-          <tr><td class="ref">B.05</td><td>Render Colour #1 (E & S Elev)</td><td class="spec">Dwg A07. Parapet assumed Colour #1 — see RFI 001.</td><td>1.98</td><td>SQ M</td><td>$58</td><td>$114.84</td></tr>
-          <tr><td class="ref">B.06</td><td>Render Colour #2 (E & S Elev)</td><td class="spec">Dwg A07. Excl. openings ≥1.0m².</td><td>41.61</td><td>SQ M</td><td>$58</td><td>$2,413.38</td></tr>
-          <tr class="sub"><td colspan="3">Subtotal — External Wall Finishes</td><td>220.29</td><td>SQ M</td><td>—</td><td>$19,050.62</td></tr>
-
-          <tr class="sect"><td colspan="7">C — Internal Wet Area Finishes</td></tr>
-          <tr><td class="ref">C.01</td><td>Splashback Tile — Kitchen</td><td class="spec">Above cooktop zone. Dwg A11 Elev 1-A.</td><td>1.24</td><td>SQ M</td><td>$120</td><td>$148.80</td></tr>
-          <tr><td class="ref">C.02</td><td>Wall Tiles — Bath 1</td><td class="spec">Shower zone to 2100mm & vanity splashback. Dwg A12.</td><td>4.27</td><td>SQ M</td><td>$95</td><td>$405.65</td></tr>
-          <tr><td class="ref">C.03</td><td>Wall Tiles — Bath 2</td><td class="spec">Shower zone to 2100mm & vanity splashback. Dwg A13.</td><td>4.48</td><td>SQ M</td><td>$95</td><td>$425.60</td></tr>
-          <tr><td class="ref">C.04</td><td>Wall Tiles — Ensuite</td><td class="spec">Shower zone to 2100mm & vanity splashback. Dwg A14.</td><td>7.29</td><td>SQ M</td><td>$95</td><td>$692.55</td></tr>
-          <tr><td class="ref">C.05</td><td>Skirting Tiles — Bath 1</td><td class="spec">Base of tiled walls. Excl. shower zone. Dwg A12.</td><td>6.63</td><td>LM</td><td>$45</td><td>$298.35</td></tr>
-          <tr><td class="ref">C.06</td><td>Skirting Tiles — Bath 2</td><td class="spec">Base of tiled walls. Excl. shower zone. Dwg A13.</td><td>6.52</td><td>LM</td><td>$45</td><td>$293.40</td></tr>
-          <tr><td class="ref">C.07</td><td>Skirting Tiles — Ensuite</td><td class="spec">Base of tiled walls. Excl. shower zone. Dwg A14.</td><td>4.55</td><td>LM</td><td>$45</td><td>$204.75</td></tr>
-          <tr><td class="ref">C.08</td><td>Skirting Tiles — WC 1</td><td class="spec">Full perimeter. Dwg A15.</td><td>4.82</td><td>LM</td><td>$45</td><td>$216.90</td></tr>
-          <tr><td class="ref">C.09</td><td>Skirting Tiles — WC 2</td><td class="spec">Full perimeter. Dwg A15.</td><td>4.17</td><td>LM</td><td>$45</td><td>$187.65</td></tr>
-          <tr><td class="ref">C.10</td><td>Skirting Tiles — Laundry</td><td class="spec">Trough/cabinet zone only per Elev 2-A, Dwg A11.</td><td>1.40</td><td>LM</td><td>$45</td><td>$63.00</td></tr>
-          <tr><td class="ref">C.11</td><td>Wet Room Wall Paint — Laundry</td><td class="spec">Moisture-resistant paint. Full wall area excl. tiled zones & openings. Dwg A11.</td><td>27.80</td><td>SQ M</td><td>$22</td><td>$611.60</td></tr>
-          <tr><td class="ref">C.12</td><td>Wet Room Wall Paint — Bath 1</td><td class="spec">Moisture-resistant paint to non-tiled walls. Dwg A12.</td><td>17.20</td><td>SQ M</td><td>$22</td><td>$378.40</td></tr>
-          <tr><td class="ref">C.13</td><td>Wet Room Wall Paint — Ensuite</td><td class="spec">Moisture-resistant paint to non-tiled walls. Dwg A14.</td><td>15.80</td><td>SQ M</td><td>$22</td><td>$347.60</td></tr>
-          <tr class="sub"><td colspan="3">Subtotal — Internal Wet Area Finishes</td><td>—</td><td>—</td><td>—</td><td>$4,274.25</td></tr>
-
-          <tr class="sect"><td colspan="7">D — Internal Paint Finishes</td></tr>
-          <tr><td class="ref">D.01</td><td>Wall Paint — GF Habitable</td><td class="spec">Standard low sheen. All GF habitable walls excl. wet rooms. Openings ≥1.0m² deducted.</td><td>183.10</td><td>SQ M</td><td>$12</td><td>$2,197.20</td></tr>
-          <tr><td class="ref">D.02</td><td>Ceiling Paint — GF</td><td class="spec">Standard ceiling paint. All GF habitable rooms. Floor-to-ceiling: 2700mm.</td><td>65.50</td><td>SQ M</td><td>$10</td><td>$655.00</td></tr>
-          <tr><td class="ref">D.03</td><td>Wet Room Ceiling Paint — GF</td><td class="spec">Moisture-resistant. GF wet areas — Bath 1, Laundry.</td><td>8.90</td><td>SQ M</td><td>$14</td><td>$124.60</td></tr>
-          <tr><td class="ref">D.04</td><td>Wall Paint — FF Habitable</td><td class="spec">Standard low sheen. All FF habitable walls excl. wet rooms. Openings ≥1.0m² deducted.</td><td>300.00</td><td>SQ M</td><td>$12</td><td>$3,600.00</td></tr>
-          <tr><td class="ref">D.05</td><td>Ceiling Paint — FF</td><td class="spec">Standard ceiling paint. All FF habitable rooms. Floor-to-ceiling: 2550mm.</td><td>86.40</td><td>SQ M</td><td>$10</td><td>$864.00</td></tr>
-          <tr><td class="ref">D.06</td><td>Wet Room Ceiling Paint — FF</td><td class="spec">Moisture-resistant. FF wet areas — Bath 2, Ensuite, WC1 & WC2.</td><td>14.80</td><td>SQ M</td><td>$14</td><td>$207.20</td></tr>
-          <tr><td class="ref">D.07</td><td>Bulkhead — Kitchen Island</td><td class="spec">All faces, soffit and sides of kitchen island bulkhead. Dwg A11.</td><td>4.20</td><td>SQ M</td><td>$12</td><td>$50.40</td></tr>
-          <tr class="sub"><td colspan="3">Subtotal — Internal Paint Finishes</td><td>—</td><td>—</td><td>—</td><td>$7,698.40</td></tr>
-
+          <tr><td class="ref">B.01</td><td>Brickwork — Face Brick (W & N Elev)</td><td class="spec">GF zone per Dwg A06. Excl. openings ≥1.0m².</td><td>55.53</td><td>SQ M</td><td>$110</td><td>$6,108.30</td></tr>
+          <tr><td class="ref">B.02</td><td>Render Colour #1</td><td class="spec">FF zone per Dwg A06. Multi-coat system.</td><td>14.52</td><td>SQ M</td><td>$58</td><td>$842.16</td></tr>
+          <tr><td class="ref">B.03</td><td>Render Colour #2</td><td class="spec">FF zone per Dwg A06. Multi-coat system.</td><td>41.53</td><td>SQ M</td><td>$58</td><td>$2,408.74</td></tr>
+          
           <tr class="grand">
-            <td colspan="6">Total — Finishes Works &nbsp;&nbsp;<span style="font-size:11px;opacity:0.6;font-family:'Outfit',sans-serif;font-weight:300">excl. GST · waste · P&G · margin</span></td>
+            <td colspan="6">Total Trade Works (Excl. GST)</td>
             <td>$47,509.77</td>
           </tr>
         </tbody>
