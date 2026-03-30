@@ -6,6 +6,48 @@
     <title>Rhina Mae Dichos | Senior Estimator | Cost Analyst | Licensed Civil Engineer</title>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        /* Sticky Navigation */
+        .topnav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(250, 248, 245, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--taupe);
+            padding: 1rem 2rem;
+        }
+        .topnav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-brand {
+            font-family: 'Crimson Pro', serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--dark-text);
+            text-decoration: none;
+        }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--warm-brown);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+        @media (max-width: 768px) {
+            .nav-links { display: none; } /* Hide on mobile for simplicity */
+        }
         * {
             margin: 0;
             padding: 0;
@@ -523,6 +565,16 @@
     </style>
 </head>
 <body>
+    <nav class="topnav">
+        <div class="topnav-inner">
+            <a href="#" class="nav-brand">Rhina Mae <span>Dichos</span></a>
+            <ul class="nav-links">
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
@@ -566,7 +618,7 @@
     </section>
 
     <!-- Portfolio Section -->
-    <section class="section section-cream">
+    <section class="section section-cream" id="portfolio">
         <div class="container">
             <h2 class="section-title">Portfolio</h2>
             <div class="divider"></div>
@@ -626,7 +678,7 @@
     </section>
 
     <!-- About Section -->
-    <section class="section section-white">
+    <section class="section section-white" id="about">
         <div class="container">
             <h2 class="section-title">About Me</h2>
             <div class="divider"></div>
@@ -692,6 +744,7 @@
                     <ul>
                         <li>Planswift & AutoCAD</li>
                         <li>Notion & Cloud Platforms</li>
+                        <li>AI-Assisted Development (Vibe Coding)</li> <!-- Added this -->
                         <li>Microsoft Office Suite (Advanced)</li>
                         <li>SketchUp</li>
                         <li>Remote Collaboration Tools</li>
@@ -735,9 +788,13 @@
     <!-- Footer -->
     <footer>
         <p>&copy; 2026 Rhina Mae Dichos. All rights reserved.</p>
-        <p style="margin-top: 0.5rem;">
+        <p style="margin-top: 0.5rem; opacity: 0.8;">
             Licensed Civil Engineer | Senior QS | Innovation Award Winner 2024
         </p>
+        <!-- Vibe Coding Credit -->
+        <p style="margin-top: 1.5rem; font-size: 0.75rem; color: var(--taupe); letter-spacing: 1px;">
+            BUILD PROCESS: <span style="color: var(--gold); border: 1px solid var(--gold); padding: 2px 8px; border-radius: 4px;">VIBE CODED</span> 
+            <br>Built through AI-Collaborative Development to showcase tech-adaptability.        </p>
     </footer>
 
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
